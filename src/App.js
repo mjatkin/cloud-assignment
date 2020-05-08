@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react'
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
+import { withAuthenticator} from '@aws-amplify/ui-react'
 import { Storage, API, graphqlOperation } from 'aws-amplify'
 import uuid from 'uuid/v4'
 import { createUser as CreateUser } from './graphql/mutations'
@@ -123,7 +123,9 @@ function App() {
           )
         })
       }
-      <img
+      <video
+        autoPlay
+        controls
         src={avatarUrl}
         style={{ width: 300 }}
       />

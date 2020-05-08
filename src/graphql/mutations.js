@@ -8,8 +8,8 @@ export const createUser = /* GraphQL */ `
   ) {
     createUser(input: $input, condition: $condition) {
       id
-      username
-      avatar {
+      name
+      video {
         bucket
         region
         key
@@ -24,8 +24,8 @@ export const updateUser = /* GraphQL */ `
   ) {
     updateUser(input: $input, condition: $condition) {
       id
-      username
-      avatar {
+      name
+      video {
         bucket
         region
         key
@@ -40,8 +40,8 @@ export const deleteUser = /* GraphQL */ `
   ) {
     deleteUser(input: $input, condition: $condition) {
       id
-      username
-      avatar {
+      name
+      video {
         bucket
         region
         key

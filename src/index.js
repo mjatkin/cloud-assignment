@@ -1,11 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Amplify from 'aws-amplify'
+import config from './aws-exports'
+Amplify.configure(config)
 
 ReactDOM.render(
   <React.StrictMode>
+    <AmplifySignOut />
     <App />
   </React.StrictMode>,
   document.getElementById('root')

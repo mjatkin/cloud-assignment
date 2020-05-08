@@ -1,33 +1,42 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateVideo = /* GraphQL */ `
-  subscription OnCreateVideo {
-    onCreateVideo {
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser {
+    onCreateUser {
       id
-      name
-      description
-      video
+      username
+      avatar {
+        bucket
+        region
+        key
+      }
     }
   }
 `;
-export const onUpdateVideo = /* GraphQL */ `
-  subscription OnUpdateVideo {
-    onUpdateVideo {
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser {
+    onUpdateUser {
       id
-      name
-      description
-      video
+      username
+      avatar {
+        bucket
+        region
+        key
+      }
     }
   }
 `;
-export const onDeleteVideo = /* GraphQL */ `
-  subscription OnDeleteVideo {
-    onDeleteVideo {
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser {
+    onDeleteUser {
       id
-      name
-      description
-      video
+      username
+      avatar {
+        bucket
+        region
+        key
+      }
     }
   }
 `;

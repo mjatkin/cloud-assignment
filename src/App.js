@@ -64,7 +64,8 @@ function App() {
   async function createUser() {
     if (file) {
         const { name: fileName, type: mimeType } = file  
-        const key = `${uuid()}${fileName}`
+        const origkey = `job-${uuid()}${fileName}`
+        const key = `complete/${origkey.split('.')[0]}.mp4`
         const fileForUpload = {
             bucket,
             key,
@@ -73,7 +74,7 @@ function App() {
         const inputData = { username: fileName, avatar: fileForUpload }
 
         try {
-          await Storage.put(key, file, {
+          await Storage.put(origkey, file, {
             contentType: mimeType
           })
           await API.graphql(graphqlOperation(CreateUser, { input: inputData }))

@@ -1,7 +1,7 @@
 type User @model {
   id: ID!
-  name: String!
-  video: S3Object
+  username: String!
+  avatar: S3Object
 }
 
 type S3Object {

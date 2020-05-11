@@ -42,10 +42,13 @@ function App() {
   async function fetchImage(key) {
     try {
       const imageData = await Storage.get(key)
+      let a = document.getElementById('download')
+      a.href = imageData
       updateAvatarUrl(imageData)
     } catch(err) {
       console.log('error: ', err)
     }
+
   }
 
   async function fetchUsers() {
@@ -59,8 +62,7 @@ function App() {
   }
 
   async function createUser() {
-    if (!username) return alert('please enter a username')
-    if (file && username) {
+    if (file) {
         const { name: fileName, type: mimeType } = file  
         const key = `${uuid()}${fileName}`
         const fileForUpload = {
@@ -68,7 +70,7 @@ function App() {
             key,
             region,
         }
-        const inputData = { username, avatar: fileForUpload }
+        const inputData = { username: fileName, avatar: fileForUpload }
 
         try {
           await Storage.put(key, file, {
@@ -82,6 +84,8 @@ function App() {
         }
     }
   }
+
+
   useEffect(() => {
     fetchUsers()
     const subscription = API.graphql(graphqlOperation(onCreateUser))
@@ -102,14 +106,9 @@ function App() {
         onChange={handleChange}
         style={{margin: '10px 0px'}}
       />
-      <input
-        placeholder='Username'
-        value={username}
-        onChange={e => updateUsername(e.target.value)}
-      />
       <button
         style={styles.button}
-        onClick={createUser}>Save Image</button>
+        onClick={createUser}>Upload Video</button>
       {
         state.users.map((u, i) => {
           return (
@@ -123,12 +122,9 @@ function App() {
           )
         })
       }
-      <video
-        autoPlay
-        controls
-        src={avatarUrl}
-        style={{ width: 300 }}
-      />
+      <a id="download" href="" download target>
+        <button style={styles.button}>Download</button>
+      </a> 
     </div>
   )
 }

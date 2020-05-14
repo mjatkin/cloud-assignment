@@ -2,7 +2,7 @@ import React, { useState, useReducer, useEffect } from 'react'
 import { withAuthenticator} from '@aws-amplify/ui-react'
 import { Storage, API, graphqlOperation } from 'aws-amplify'
 import uuid from 'uuid/v4'
-import { createUser as CreateUser } from './graphql/mutations'
+import { createUser as CreateUser, deleteUser as DeleteUser } from './graphql/mutations'
 import { listUsers } from './graphql/queries'
 import { onCreateUser } from './graphql/subscriptions'
 import config from './aws-exports'
@@ -40,10 +40,12 @@ function App() {
   }
 
 var currentKey
+var currentID 
 
-  async function fetchImage(key) {
+  async function fetchImage(key, id) {
     try {
       currentKey = key
+      currentID = id
       const imageData = await Storage.get(key)
       let a = document.getElementById('download')
       a.href = imageData
@@ -67,8 +69,8 @@ var currentKey
   async function createUser() {
     if (file) {
         const { name: fileName, type: mimeType } = file  
-        const key = `job-${uuid()}${fileName}`
-        //const key = `complete/${origkey.split('.')[0]}.mp4`
+        const origkey = `job-${uuid()}${fileName}`
+        const key = `complete/${origkey.split('.')[0]}.mp4`
         const fileForUpload = {
             bucket,
             key,
@@ -77,10 +79,11 @@ var currentKey
         const inputData = { username: fileName, avatar: fileForUpload }
 
         try {
-          await Storage.put(key, file, {
+          await Storage.put(origkey, file, {
             contentType: mimeType
           })
-          await API.graphql(graphqlOperation(CreateUser, { input: inputData }))
+          const foo = await API.graphql(graphqlOperation(CreateUser, { input: inputData }))
+          console.log(foo)
           updateUsername('')
           console.log('successfully stored user data!')
         } catch (err) {
@@ -90,11 +93,14 @@ var currentKey
   }
 
   async function deleteVideo() {
-   // const { name: fileName, type: mimeType } = file
-    //const inputData = { username: fileName, avatar: fileForUpload }
-    await Storage.remove(currentKey)
-    console.log(currentKey)
-    //await API.graphql(graphqlOperation(deleteUser, { input: inputData }))
+    const inputData = {id: currentID}
+    try {
+      await Storage.remove(currentKey)
+      console.log(currentKey)
+      await API.graphql(graphqlOperation(DeleteUser, { input: inputData }))
+    } catch(err) {
+      console.log('error: ', err)
+    }
   }
 
 
@@ -129,7 +135,7 @@ var currentKey
             >
               <p
                 style={styles.username}
-               onClick={() => fetchImage(u.avatar.key)}>{u.username}</p>
+               onClick={() => fetchImage(u.avatar.key, u.id)}>{u.username}</p>
             </div>
           )
         })

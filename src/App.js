@@ -39,8 +39,11 @@ function App() {
     updateFile(image || value)
   }
 
+var currentKey
+
   async function fetchImage(key) {
     try {
+      currentKey = key
       const imageData = await Storage.get(key)
       let a = document.getElementById('download')
       a.href = imageData
@@ -64,8 +67,8 @@ function App() {
   async function createUser() {
     if (file) {
         const { name: fileName, type: mimeType } = file  
-        const origkey = `job-${uuid()}${fileName}`
-        const key = `complete/${origkey.split('.')[0]}.mp4`
+        const key = `job-${uuid()}${fileName}`
+        //const key = `complete/${origkey.split('.')[0]}.mp4`
         const fileForUpload = {
             bucket,
             key,
@@ -74,7 +77,7 @@ function App() {
         const inputData = { username: fileName, avatar: fileForUpload }
 
         try {
-          await Storage.put(origkey, file, {
+          await Storage.put(key, file, {
             contentType: mimeType
           })
           await API.graphql(graphqlOperation(CreateUser, { input: inputData }))
@@ -84,6 +87,14 @@ function App() {
           console.log('error: ', err)
         }
     }
+  }
+
+  async function deleteVideo() {
+   // const { name: fileName, type: mimeType } = file
+    //const inputData = { username: fileName, avatar: fileForUpload }
+    await Storage.remove(currentKey)
+    console.log(currentKey)
+    //await API.graphql(graphqlOperation(deleteUser, { input: inputData }))
   }
 
 
@@ -123,9 +134,11 @@ function App() {
           )
         })
       }
-      <a id="download" href="" download target>
+      <a id="download" href="" download>
         <button style={styles.button}>Download</button>
       </a> 
+
+      <button style={styles.button} onClick={deleteVideo}>Delete</button>
     </div>
   )
 }

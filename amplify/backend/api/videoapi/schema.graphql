@@ -1,6 +1,7 @@
 type User @model {
   id: ID!
   username: String!
+  email: String!
   avatar: S3Object
 }
 
@@ -8,4 +9,5 @@ type S3Object {
   bucket: String!
   region: String!
   key: String!
+  oldkey: String!
 }

@@ -6,10 +6,12 @@ export const onCreateUser = /* GraphQL */ `
     onCreateUser {
       id
       username
+      email
       avatar {
         bucket
         region
         key
+        oldkey
       }
     }
   }
@@ -19,10 +21,12 @@ export const onUpdateUser = /* GraphQL */ `
     onUpdateUser {
       id
       username
+      email
       avatar {
         bucket
         region
         key
+        oldkey
       }
     }
   }
@@ -32,10 +36,12 @@ export const onDeleteUser = /* GraphQL */ `
     onDeleteUser {
       id
       username
+      email
       avatar {
         bucket
         region
         key
+        oldkey
       }
     }
   }

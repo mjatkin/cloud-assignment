@@ -41,10 +41,12 @@ function App() {
 
 var currentKey
 var currentID 
+var currentOldKey
 
-  async function fetchImage(key, id) {
+  async function fetchImage(key, oldkey, id) {
     try {
       currentKey = key
+      currentOldKey = oldkey
       currentID = id
       const imageData = await Storage.get(key)
       let a = document.getElementById('download')
@@ -69,17 +71,18 @@ var currentID
   async function createUser() {
     if (file) {
         const { name: fileName, type: mimeType } = file  
-        const origkey = `job-${uuid()}${fileName}`
-        const key = `complete/${origkey.split('.')[0]}.mp4`
+        const oldkey = `job-${uuid()}${fileName}`
+        const key = `complete/${oldkey.split('.')[0]}.mp4`
         const fileForUpload = {
             bucket,
             key,
+            oldkey,
             region,
         }
-        const inputData = { username: fileName, avatar: fileForUpload }
+        const inputData = { username: fileName, avatar: fileForUpload, email: "memes" }
 
         try {
-          await Storage.put(origkey, file, {
+          await Storage.put(oldkey, file, {
             contentType: mimeType
           })
           const foo = await API.graphql(graphqlOperation(CreateUser, { input: inputData }))
@@ -96,6 +99,7 @@ var currentID
     const inputData = {id: currentID}
     try {
       await Storage.remove(currentKey)
+      await Storage.remove(currentOldKey)
       console.log(currentKey)
       await API.graphql(graphqlOperation(DeleteUser, { input: inputData }))
     } catch(err) {
@@ -135,7 +139,7 @@ var currentID
             >
               <p
                 style={styles.username}
-               onClick={() => fetchImage(u.avatar.key, u.id)}>{u.username}</p>
+               onClick={() => fetchImage(u.avatar.key, u.avatar.oldkey, u.id)}>{u.username}</p>
             </div>
           )
         })

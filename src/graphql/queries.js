@@ -6,10 +6,12 @@ export const getUser = /* GraphQL */ `
     getUser(id: $id) {
       id
       username
+      email
       avatar {
         bucket
         region
         key
+        oldkey
       }
     }
   }
@@ -24,10 +26,12 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         username
+        email
         avatar {
           bucket
           region
           key
+          oldkey
         }
       }
       nextToken

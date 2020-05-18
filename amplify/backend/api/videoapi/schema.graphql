@@ -11,3 +11,7 @@ type S3Object {
   key: String!
   oldkey: String!
 }
+
+type Progress {
+  message: String!
+}

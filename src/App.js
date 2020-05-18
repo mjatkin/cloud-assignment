@@ -4,7 +4,7 @@ import { Storage, API, graphqlOperation } from 'aws-amplify'
 import uuid from 'uuid/v4'
 import { createUser as CreateUser, deleteUser as DeleteUser } from './graphql/mutations'
 import { listUsers } from './graphql/queries'
-import { onCreateUser } from './graphql/subscriptions'
+import { onCreateUser, onProgressUpdate } from './graphql/subscriptions'
 import config from './aws-exports'
 
 const {
@@ -106,7 +106,6 @@ var currentOldKey
       console.log('error: ', err)
     }
   }
-
 
   useEffect(() => {
     fetchUsers()

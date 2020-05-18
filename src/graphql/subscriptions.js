@@ -46,3 +46,10 @@ export const onDeleteUser = /* GraphQL */ `
     }
   }
 `;
+export const onProgressUpdate = /* GraphQL */ `
+  subscription OnProgressUpdate {
+    onProgressUpdate {
+      message
+    }
+  }
+`;

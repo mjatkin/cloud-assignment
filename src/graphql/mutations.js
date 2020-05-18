@@ -55,3 +55,10 @@ export const deleteUser = /* GraphQL */ `
     }
   }
 `;
+export const triggerProgressUpdate = /* GraphQL */ `
+  mutation TriggerProgressUpdate($input: ProgressInput!) {
+    triggerProgressUpdate(input: $input) {
+      message
+    }
+  }
+`;

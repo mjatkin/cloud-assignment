@@ -73,13 +73,14 @@ var currentOldKey
         const { name: fileName, type: mimeType } = file  
         const oldkey = `job-${uuid()}${fileName}`
         const key = `complete/${oldkey.split('.')[0]}.mp4`
+        const newFileName = fileName.split('.')[0]
         const fileForUpload = {
             bucket,
             key,
             oldkey,
             region,
         }
-        const inputData = { username: fileName, avatar: fileForUpload, email: "memes" }
+        const inputData = { username: newFileName, avatar: fileForUpload, email: "memes" }
 
         try {
           await Storage.put(oldkey, file, {

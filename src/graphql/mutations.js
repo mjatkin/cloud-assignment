@@ -8,9 +8,8 @@ export const createUser = /* GraphQL */ `
   ) {
     createUser(input: $input, condition: $condition) {
       id
-      username
-      email
-      avatar {
+      filename
+      video {
         bucket
         region
         key
@@ -26,9 +25,8 @@ export const updateUser = /* GraphQL */ `
   ) {
     updateUser(input: $input, condition: $condition) {
       id
-      username
-      email
-      avatar {
+      filename
+      video {
         bucket
         region
         key
@@ -44,21 +42,13 @@ export const deleteUser = /* GraphQL */ `
   ) {
     deleteUser(input: $input, condition: $condition) {
       id
-      username
-      email
-      avatar {
+      filename
+      video {
         bucket
         region
         key
         oldkey
       }
-    }
-  }
-`;
-export const triggerProgressUpdate = /* GraphQL */ `
-  mutation TriggerProgressUpdate($input: ProgressInput!) {
-    triggerProgressUpdate(input: $input) {
-      message
     }
   }
 `;

@@ -5,9 +5,8 @@ export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
       id
-      username
-      email
-      avatar {
+      filename
+      video {
         bucket
         region
         key
@@ -25,9 +24,8 @@ export const listUsers = /* GraphQL */ `
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        username
-        email
-        avatar {
+        filename
+        video {
           bucket
           region
           key

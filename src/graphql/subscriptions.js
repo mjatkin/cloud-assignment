@@ -5,9 +5,8 @@ export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser {
     onCreateUser {
       id
-      username
-      email
-      avatar {
+      filename
+      video {
         bucket
         region
         key
@@ -20,9 +19,8 @@ export const onUpdateUser = /* GraphQL */ `
   subscription OnUpdateUser {
     onUpdateUser {
       id
-      username
-      email
-      avatar {
+      filename
+      video {
         bucket
         region
         key
@@ -35,21 +33,13 @@ export const onDeleteUser = /* GraphQL */ `
   subscription OnDeleteUser {
     onDeleteUser {
       id
-      username
-      email
-      avatar {
+      filename
+      video {
         bucket
         region
         key
         oldkey
       }
-    }
-  }
-`;
-export const onProgressUpdate = /* GraphQL */ `
-  subscription OnProgressUpdate {
-    onProgressUpdate {
-      message
     }
   }
 `;

@@ -80,7 +80,7 @@ var currentOldKey
             oldkey,
             region,
         }
-        const inputData = { username: newFileName, avatar: fileForUpload, email: "memes" }
+        const inputData = { filename: newFileName, video: fileForUpload}
 
         try {
           await Storage.put(oldkey, file, {
@@ -139,7 +139,7 @@ var currentOldKey
             >
               <p
                 style={styles.username}
-               onClick={() => fetchImage(u.avatar.key, u.avatar.oldkey, u.id)}>{u.username}</p>
+               onClick={() => fetchImage(u.video.key, u.video.oldkey, u.id)}>{u.filename}</p>
             </div>
           )
         })
